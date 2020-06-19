@@ -1,12 +1,22 @@
-import Vue from 'vue'
-import App from './App.vue'
-import router from './router'
-import store from './store'
+import 'es6-promise/auto';
+import 'babel-polyfill';
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import vuetify from './plugins/vuetify';
+import i18n from './plugins/i18n';
+import './plugins/config';
+import './plugins/function';
+import './plugins/axios';
+import './plugins/vueSweetalert2';
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 new Vue({
   router,
+  i18n,
   store,
+  vuetify,
   render: h => h(App)
-}).$mount('#app')
+}).$mount('#app');
