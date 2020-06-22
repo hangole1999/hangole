@@ -7,14 +7,16 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:e2e": "vue-cli-service test:e2e",
-    "test:unit": "vue-cli-service test:unit"
+    "test:unit": "vue-cli-service test:unit",
+    "deploy": "firebase deploy",
+    "build-deploy": "vue-cli-service build && firebase deploy"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0",
     "core-js": "^3.6.5",
     "es6-promise": "^4.2.8",
-    "firebase": "^7.15.2",
+    "firebase": "^7.15.3",
     "vue": "^2.6.11",
     "vue-i18n": "^8.18.2",
     "vue-router": "^3.2.0",
