@@ -1,5 +1,6 @@
 
 import web3 from '@/plugins/web3';
+import func from '@/plugins/function';
 
 export default {
   // web3
@@ -17,19 +18,12 @@ export default {
         
         // web3.getNetwork(web3Instance).then((networkID) => commit('syncNetworkID', {networkID}));
       } else {
-        if (typeof err === 'function') {
-          err();
-        }
+        func.execFunc(err);
       }
     } catch (error) {
-      if (typeof err === 'function') {
-        err(error);
-      }
+      func.execFunc(err, error);
     }
-
-    if (typeof final === 'function') {
-      final();
-    }
+    func.execFunc(final);
   }
 }
   

@@ -2,6 +2,9 @@
 import Vue from 'vue';
 
 const config = {
+  host: {
+    github: 'https://github.com/hangole1999/hangole'
+  },
   languages: [
     {
       title: 'English',

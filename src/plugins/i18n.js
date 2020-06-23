@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
+import func from '@/plugins/function';
 
 Vue.use(VueI18n);
 
@@ -25,21 +26,13 @@ if (browserLanguage !== 'ko') {
   browserLanguage = '';
 }
 
-let storage;
-try {
-  storage = window['localStorage'];
-  let x = '__storage_test__';
-  storage.setItem(x, x);
-  storage.removeItem(x);
-
+func.storageEach((storage) => {
   storedLanguage = storage.getItem('language');
 
   if (storedLanguage !== 'ko') {
     storedLanguage = '';
   }
-} catch (err) {
-  window.console.log(err);
-}
+});
 
 export default new VueI18n({
   locale: process.env.VUE_APP_I18N_LOCALE || storedLanguage || browserLanguage || 'en',

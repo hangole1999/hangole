@@ -1,60 +1,89 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
+    <Header />
 
     <v-content>
-      <HelloWorld/>
+      <v-container class="app-container">
+        <router-view/>
+      </v-container>
     </v-content>
+
+    <Footer />
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default {
   name: 'App',
-
   components: {
-    HelloWorld
+    Header,
+    Footer
   },
-
   data: () => ({
-    //
   })
 };
 </script>
+
+<style>
+/* all */
+* {
+  outline: none;
+  vertical-align: middle;
+  list-style: none;
+  text-decoration: none;
+  scroll-behavior: smooth;
+  word-wrap: break-word;
+  word-break: break-word;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* user selection */
+::-moz-selection {
+  color: white !important;
+  background: black !important;
+}
+::selection {
+  color: white !important;
+  background: black !important;
+}
+
+/* all scopes */
+html,
+body {
+  margin: 0px;
+  padding: 0;
+  background-color: #fff;
+  overflow-x: hidden;
+}
+
+#app {
+}
+
+.app-container {
+  padding: 100px 12px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+img,
+a,
+.no-user-select {
+  user-select: none;
+}
+
+.transition-all {
+  -webkit-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+  -moz-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+  -ms-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+  -o-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+  transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+}
+</style>

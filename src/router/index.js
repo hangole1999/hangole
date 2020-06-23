@@ -1,26 +1,71 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Router from 'vue-router';
 
-Vue.use(VueRouter);
+import func from '@/plugins/function';
 
-const routes = [{
-  path: '/',
-  name: 'Home',
-  component: Home
-}, {
-  path: '/about',
-  name: 'About',
-  // route level code-splitting
-  // this generates a separate chunk (about.[hash].js) for this route
-  // which is lazy-loaded when the route is visited.
-  component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-}];
+import Home from '@/views/Home.vue';
+import Join from '@/views/Join.vue';
+import Login from '@/views/Login.vue';
+import Mypage from '@/views/Mypage.vue';
 
-const router = new VueRouter({
+import store from '@/store';
+
+Vue.use(Router);
+
+const routes = [
+  {
+    path: '/',
+    name: 'home',
+    component: Home
+  }, {
+    path: '/join',
+    name: 'Join',
+    component: Join
+  }, {
+    path: '/login',
+    name: 'Login',
+    component: Login
+  }, {
+    path: '/mypage',
+    name: 'Mypage',
+    component: Mypage,
+    meta: {
+      authRequired: true
+    }
+  }
+];
+
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
 });
+
+const requireAuth = (to, from, next) => {
+  let authRequired = to.matched.some((routeInfo) => routeInfo.meta.authRequired);
+
+  if (authRequired) {
+    if (store.getters.user.token) {
+      next();
+    } else {
+      func.storageEach((storage) => {
+        let user = storage.getItem('user');
+        user = JSON.parse(user);
+
+        if (user.token) {
+          store.state.user.token = user.token;
+          store.state.user.id = user.id;
+          next();
+        } else {
+          next('/login');
+        }
+      }).catch(() => next('/login'));
+    }
+  } else {
+    next();
+  }
+};
+
+router.beforeEach(requireAuth);
 
 export default router;

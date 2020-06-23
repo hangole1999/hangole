@@ -2,6 +2,10 @@
 export default {
   connectionCount: 0,
   language: '',
+  user: {
+    id: '',
+    token: ''
+  },
   metamask: {
     web3: {
       isInjected: false,

@@ -1,4 +1,6 @@
 
+import func from '@/plugins/function';
+
 export default {
   // web3
   syncWeb3 (state, {web3Instance, then}) {
@@ -8,30 +10,22 @@ export default {
 
     this.dispatch('storeMetamask', {});
 
-    if (typeof then === 'function') {
-      then();
-    }
+    func.execFunc(then);
   },
   syncCoinbase (state, {coinbase, then}) {
     state.metamask.web3.coinbase = coinbase;
 
-    if (typeof then === 'function') {
-      then();
-    }
+    func.execFunc(then);
   },
   syncNetworkID (state, {networkID, then}) {
     state.metamask.web3.networkID = networkID;
 
-    if (typeof then === 'function') {
-      then();
-    }
+    func.execFunc(then);
   },
   syncBalance (state, {balance, then}) {
     state.metamask.web3.balance = parseInt(balance, 10);
 
-    if (typeof then === 'function') {
-      then();
-    }
+    func.execFunc(then);
   }
 }
   

@@ -1,13 +1,9 @@
 
+import func from '@/plugins/function';
+
 export default {
   async syncLocalStorage ({commit}, {then, err, final}) {
-    let storage;
-    try {
-      storage = window['localStorage'];
-      let x = '__storage_test__';
-      storage.setItem(x, x);
-      storage.removeItem(x);
-
+    await func.storageEach(async (storage) => {
       let connectionCount = storage.getItem('connectionCount');
       let connectMetamask = storage.getItem('connectMetamask');
 
@@ -26,39 +22,15 @@ export default {
       }
 
       commit('syncLocalStorage', {connectionCount, then});
-    } catch (error) {
-      if (typeof err === 'function') {
-        err(error);
-      }
-    }
-    if (typeof final === 'function') {
-      final();
-    }
-  },
-
-  storeConnectionCount ({commit}, {then, err, final}) {
-    try {
-      commit('storeConnectionCount', {then});
-    } catch (error) {
-      if (typeof err === 'function') {
-        err(error);
-      }
-    }
-    if (typeof final === 'function') {
-      final();
-    }
+    }).catch(err).finally(final);
   },
 
   storeMetamask ({commit}, {then, err, final}) {
     try {
       commit('storeMetamask', {then});
     } catch (error) {
-      if (typeof err === 'function') {
-        err(error);
-      }
+      func.execFunc(err, error);
     }
-    if (typeof final === 'function') {
-      final();
-    }
+    func.execFunc(final);
   }
 };

@@ -1,4 +1,5 @@
 
+import vue from 'vue';
 import Web3 from 'web3';
 
 const web3Enable = () => new Promise((resolve) => {
@@ -48,6 +49,12 @@ const getBalance = (web3, coinbase) => new Promise((resolve, reject) => {
     }
   });
 });
+
+vue.prototype.$web3Enable = web3Enable;
+vue.prototype.$getWeb3 = getWeb3;
+vue.prototype.$getCoinbase = getCoinbase;
+vue.prototype.$getNetwork = getNetwork;
+vue.prototype.$getBalance = getBalance;
   
 export default {
   web3Enable,

@@ -1,6 +1,32 @@
 
 import vue from 'vue';
 
+const execFunc = (func, ...args) => {
+  if (typeof func === 'function') {
+    return func(...args);
+  }
+};
+
+const storageEach = (func) => new Promise((resolve, reject) => {
+  let storage;
+  try {
+    storage = window['localStorage'];
+    let x = '__storage_test__';
+    storage.setItem(x, x);
+    storage.removeItem(x);
+
+    resolve(func(storage));
+  } catch (error) {
+    window.console.error('storageEach', error);
+    reject(error);
+  }
+});
+
+const validateEmail = (email) => {
+  const emailRegex = /\S+@\S+\.\S+/;
+  return emailRegex.test(email);
+};
+
 const timeformatDiffNow = (timestamp) => {
   if (!timestamp) {
     return 'Unknown times ago';
@@ -240,11 +266,12 @@ const axiosErrorHandle = (dispatch, error, errorFunction) => {
   message = `${axiosStatusString}${responseStatusString}${snackbarMessage}`;
   window.console.log(message);
 
-  if (typeof errorFunction === 'function') {
-    errorFunction(error);
-  }
+  execFunc(errorFunction, error);
 };
 
+vue.prototype.$execFunc = execFunc;
+vue.prototype.$storageEach = storageEach;
+vue.prototype.$validateEmail = validateEmail;
 vue.prototype.$timeformatDiffNow = timeformatDiffNow;
 vue.prototype.$timeformatObjectDiffNow = timeformatObjectDiffNow;
 vue.prototype.$timeformat = timeformat;
@@ -254,6 +281,9 @@ vue.prototype.$numberWithCommas = numberWithCommas;
 vue.prototype.$axiosErrorHandle = axiosErrorHandle;
 
 export default {
+  execFunc,
+  storageEach,
+  validateEmail,
   timeformatDiffNow,
   timeformatObjectDiffNow,
   timeformat,
