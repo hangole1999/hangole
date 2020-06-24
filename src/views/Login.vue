@@ -64,6 +64,8 @@ export default {
   },
   methods: {
     login () {
+      window.console.log('login');
+
       this.loading = true;
 
       if (!this.$refs.form.validate()) {
@@ -71,13 +73,6 @@ export default {
         return false;
       }
 
-      let body = {
-        email: this.email,
-        password: this.password
-      };
-
-      window.console.log('login', body);
-      // TODO
       this.$firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((result) => {
         window.console.log('success login', result);
 

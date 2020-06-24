@@ -1,11 +1,11 @@
 
 import firebase from 'firebase';
 
-const facebookProvider = new firebase.auth.FacebookAuthProvider();
+const provider = new firebase.auth.FacebookAuthProvider();
 
-facebookProvider.addScope('public_profile');
-facebookProvider.setCustomParameters({
-  'display': 'popup'
-});
+// provider.addScope('email');
+// provider.setCustomParameters({
+//   'display': 'popup'
+// });
 
-export default facebookProvider;
+export default provider;

@@ -1,11 +1,11 @@
 
 import firebase from 'firebase';
 
-const githubProvider = new firebase.auth.GithubAuthProvider();
+const provider = new firebase.auth.GithubAuthProvider();
 
-githubProvider.addScope('public_profile');
-githubProvider.setCustomParameters({
+provider.addScope('public_profile');
+provider.setCustomParameters({
   'display': 'popup'
 });
 
-export default githubProvider;
+export default provider;
