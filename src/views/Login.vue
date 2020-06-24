@@ -64,8 +64,6 @@ export default {
   },
   methods: {
     login () {
-      window.console.log('login');
-
       this.loading = true;
 
       if (!this.$refs.form.validate()) {
@@ -74,22 +72,30 @@ export default {
       }
 
       this.$firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((result) => {
-        window.console.log('success login', result);
-
-        let token = result.credential.accessToken;
+        let token = result.credential && result.credential.accessToken;
         let user = result.user;
 
-        window.console.log('user', user);
-        window.console.log('token', token);
+        this.$store.dispatch('setUser', {
+          email: user.email,
+          name: user.displayName,
+          token: token,
+          data: user
+        });
 
-        // this.$store.state.user.id = this.id;
-        // this.$store.state.user.token = response.data.token;
-        // this.$store.dispatch('storeUser', {});
-        // await this.$store.dispatch('loginMetamask', {});
+        this.$store.dispatch('storeUser', {});
+
+        this.$store.dispatch('addSnackbar', {
+          color: 'success',
+          message: `Successfully logged in by email. Welcome, ${user.displayName || user.email}`
+        });
+
         this.$refs.form.reset();
         this.$router.push('/');
       }).catch((error) => {
-        window.console.error('fail login', error);
+        this.$store.dispatch('addSnackbar', {
+          color: 'error',
+          message: `${error.code}: ${error.message}`
+        });
       }).finally(() => {
         this.loading = false;
       });
@@ -97,67 +103,94 @@ export default {
       return false;
     },
     loginGoogle () {
-      window.console.log('loginGoogle');
-
       this.loading = true;
 
       this.$firebase.auth().signInWithPopup(this.$provider.google).then((result) => {
-        window.console.log(result);
-
-        let token = result.credential.accessToken;
+        let token = result.credential && result.credential.accessToken;
         let user = result.user;
 
-        window.console.log('user', user);
-        window.console.log('token', token);
+        this.$store.dispatch('setUser', {
+          email: user.email,
+          name: user.displayName,
+          token: token,
+          data: user
+        });
 
+        this.$store.dispatch('storeUser', {});
+
+        this.$store.dispatch('addSnackbar', {
+          color: 'success',
+          message: `Successfully logged in by google. Welcome, ${user.displayName || user.email}`
+        });
         this.$refs.form.reset();
         this.$router.push('/');
       }).catch((error) => {
-        window.console.error('fail login', error);
+        this.$store.dispatch('addSnackbar', {
+          color: 'error',
+          message: `${error.code}: ${error.message}`
+        });
       }).finally(() => {
         this.loading = false;
       });
     },
     loginFacebook () {
-      window.console.log('loginFacebook');
-
       this.loading = true;
 
       this.$firebase.auth().signInWithPopup(this.$provider.facebook).then((result) => {
-        window.console.log(result);
-
-        let token = result.credential.accessToken;
+        let token = result.credential && result.credential.accessToken;
         let user = result.user;
 
-        window.console.log('user', user);
-        window.console.log('token', token);
+        this.$store.dispatch('setUser', {
+          email: user.email,
+          name: user.displayName,
+          token: token,
+          data: user
+        });
 
+        this.$store.dispatch('storeUser', {});
+
+        this.$store.dispatch('addSnackbar', {
+          color: 'success',
+          message: `Successfully logged in by facebook. Welcome, ${user.displayName || user.email}`
+        });
         this.$refs.form.reset();
         this.$router.push('/');
       }).catch((error) => {
-        window.console.error('fail login', error);
+        this.$store.dispatch('addSnackbar', {
+          color: 'error',
+          message: `${error.code}: ${error.message}`
+        });
       }).finally(() => {
         this.loading = false;
       });
     },
     loginGithub () {
-      window.console.log('loginGithub');
-
       this.loading = true;
 
       this.$firebase.auth().signInWithPopup(this.$provider.github).then((result) => {
-        window.console.log(result);
-
-        let token = result.credential.accessToken;
+        let token = result.credential && result.credential.accessToken;
         let user = result.user;
 
-        window.console.log('user', user);
-        window.console.log('token', token);
+        this.$store.dispatch('setUser', {
+          email: user.email,
+          name: user.displayName,
+          token: token,
+          data: user
+        });
 
+        this.$store.dispatch('storeUser', {});
+
+        this.$store.dispatch('addSnackbar', {
+          color: 'success',
+          message: `Successfully logged in by github. Welcome, ${user.displayName || user.email}`
+        });
         this.$refs.form.reset();
         this.$router.push('/');
       }).catch((error) => {
-        window.console.error('fail login', error);
+        this.$store.dispatch('addSnackbar', {
+          color: 'error',
+          message: `${error.code}: ${error.message}`
+        });
       }).finally(() => {
         this.loading = false;
       });

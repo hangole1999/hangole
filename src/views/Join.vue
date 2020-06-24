@@ -74,8 +74,6 @@ export default {
   },
   methods: {
     join () {
-      window.console.log('join');
-
       this.loading = true;
 
       if (!this.$refs.form.validate()) {
@@ -83,12 +81,20 @@ export default {
         return false;
       }
 
-      this.$firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then((user) => {
-        window.console.log('success join', user);
+      this.$firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then((result) => {
+        let user = result.user;
+
+        this.$store.dispatch('addSnackbar', {
+          color: 'success',
+          message: `Successfully joined in by email. Please login, ${user.displayName || user.email}`
+        });
         this.$refs.form.reset();
         this.$router.push('/login');
       }).catch((error) => {
-        window.console.error('fail join', error);
+        this.$store.dispatch('addSnackbar', {
+          color: 'error',
+          message: `${error.code}: ${error.message}`
+        });
       }).finally(() => {
         this.loading = false;
       });
@@ -96,84 +102,98 @@ export default {
       return false;
     },
     joinGoogle () {
-      window.console.log('joinGoogle');
-
       this.loading = true;
 
       this.$firebase.auth().signInWithPopup(this.$provider.google).then((result) => {
-        window.console.log(result);
-
-        let token = result.credential.accessToken;
+        let token = result.credential && result.credential.accessToken;
         let user = result.user;
 
-        window.console.log('user', user);
-        window.console.log('token', token);
+        this.$store.dispatch('setUser', {
+          email: user.email,
+          name: user.displayName,
+          token: token,
+          data: user
+        });
 
+        this.$store.dispatch('storeUser', {});
+
+        this.$store.dispatch('addSnackbar', {
+          color: 'success',
+          message: `Successfully logged in by google. Welcome, ${user.displayName || user.email}`
+        });
         this.$refs.form.reset();
         this.$router.push('/');
       }).catch((error) => {
-        window.console.error('fail join', error);
+        this.$store.dispatch('addSnackbar', {
+          color: 'error',
+          message: `${error.code}: ${error.message}`
+        });
       }).finally(() => {
         this.loading = false;
       });
     },
     joinFacebook () {
-      window.console.log('joinFacebook');
-
       this.loading = true;
 
       this.$firebase.auth().signInWithPopup(this.$provider.facebook).then((result) => {
-        window.console.log(result);
-
-        let token = result.credential.accessToken;
+        let token = result.credential && result.credential.accessToken;
         let user = result.user;
 
-        window.console.log('user', user);
-        window.console.log('token', token);
+        this.$store.dispatch('setUser', {
+          email: user.email,
+          name: user.displayName,
+          token: token,
+          data: user
+        });
 
+        this.$store.dispatch('storeUser', {});
+
+        this.$store.dispatch('addSnackbar', {
+          color: 'success',
+          message: `Successfully joined in by facebook. Welcome, ${user.displayName || user.email}`
+        });
         this.$refs.form.reset();
         this.$router.push('/');
       }).catch((error) => {
-        window.console.error('fail join', error);
+        this.$store.dispatch('addSnackbar', {
+          color: 'error',
+          message: `${error.code}: ${error.message}`
+        });
       }).finally(() => {
         this.loading = false;
       });
     },
     joinGithub () {
-      window.console.log('joinGithub');
-
       this.loading = true;
 
       this.$firebase.auth().signInWithPopup(this.$provider.github).then((result) => {
-        window.console.log(result);
-
-        let token = result.credential.accessToken;
+        let token = result.credential && result.credential.accessToken;
         let user = result.user;
 
-        window.console.log('user', user);
-        window.console.log('token', token);
+        this.$store.dispatch('setUser', {
+          email: user.email,
+          name: user.displayName,
+          token: token,
+          data: user
+        });
 
+        this.$store.dispatch('storeUser', {});
+
+        this.$store.dispatch('addSnackbar', {
+          color: 'success',
+          message: `Successfully joined in by github. Welcome, ${user.displayName || user.email}`
+        });
         this.$refs.form.reset();
         this.$router.push('/');
       }).catch((error) => {
-        window.console.error('fail join', error);
+        this.$store.dispatch('addSnackbar', {
+          color: 'error',
+          message: `${error.code}: ${error.message}`
+        });
       }).finally(() => {
         this.loading = false;
       });
-    },
-    async syncAddress () {
-      let web3Instance = await this.$getWeb3();
-      this.$getCoinbase(web3Instance).then((coinbase) => {
-        if (coinbase) {
-          this.address = coinbase;
-        } else {
-          window.console.error('Failed to get Ethereum Address: Please check Meta Mask');
-        }
-      });
     }
-  },
-  mounted () {
-    this.syncAddress();
   }
 }
 </script>

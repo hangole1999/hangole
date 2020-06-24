@@ -53,9 +53,13 @@ const requireAuth = (to, from, next) => {
         user = JSON.parse(user);
 
         if (user.token) {
-          store.state.user.token = user.token;
-          store.state.user.id = user.id;
-          next();
+          store.dispatch('setUser', {
+            email: user.email,
+            name: user.name,
+            token: user.token,
+            data: user.data,
+            then: next
+          });
         } else {
           next('/login');
         }

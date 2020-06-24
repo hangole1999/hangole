@@ -10,7 +10,6 @@ import './plugins/config';
 import './plugins/function';
 import './plugins/axios';
 import './plugins/firebase';
-import './plugins/vueSweetalert2';
 
 Vue.config.productionTip = false;
 

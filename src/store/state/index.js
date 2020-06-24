@@ -3,7 +3,9 @@ export default {
   connectionCount: 0,
   language: '',
   user: {
-    id: '',
+    data: null,
+    email: '',
+    name: '',
     token: ''
   },
   metamask: {
@@ -17,6 +19,11 @@ export default {
     },
     using: false
   },
-  ui: [
-  ]
+  ui: {
+    snackbar: {
+      id: 0,
+      show: true,
+      list: []
+    }
+  }
 };

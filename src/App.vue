@@ -2,13 +2,15 @@
   <v-app>
     <Header />
 
-    <v-content>
+    <v-main>
       <v-container class="app-container">
         <router-view/>
       </v-container>
-    </v-content>
+    </v-main>
 
     <Footer />
+
+    <SnackbarController />
   </v-app>
 </template>
 
@@ -16,14 +18,15 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
+import SnackbarController from '@/components/SnackbarController';
+
 export default {
   name: 'App',
   components: {
     Header,
-    Footer
-  },
-  data: () => ({
-  })
+    Footer,
+    SnackbarController
+  }
 };
 </script>
 

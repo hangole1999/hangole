@@ -41,10 +41,12 @@ export default {
   },
   methods: {
     logout () {
-      this.$store.state.user.id = '';
-      this.$store.state.user.token = '';
-      this.$store.dispatch('storeUser', {});
-      window.console.log('You are logged out');
+      this.$store.dispatch('resetUser', {then: () => {
+        this.$store.dispatch('addSnackbar', {
+          color: 'success',
+          message: 'Successfully logged out'
+        });
+      }});
       if (this.$route.path !== '/') {
         this.$router.push('/');
       }
