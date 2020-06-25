@@ -8,15 +8,14 @@ export default {
     try {
       if (await web3.web3Enable()) {
         let web3Instance = await web3.getWeb3()
+        let coinbase = await web3.getCoinbase(web3Instance);
+        let balance = await web3.getBalance(web3Instance, coinbase);
+        let networkType = await web3.getNetwork(web3Instance);
+
         commit('syncWeb3', {web3Instance, then});
-
-        web3.getCoinbase(web3Instance).then((coinbase) => {
-          commit('syncCoinbase', {coinbase});
-
-          web3.getBalance(web3Instance, coinbase).then((balance) => commit('syncBalance', {balance}));
-        });
-        
-        // web3.getNetwork(web3Instance).then((networkType) => commit('syncNetworkType', {networkType}));
+        commit('syncCoinbase', {coinbase});
+        commit('syncBalance', {balance});
+        commit('syncNetworkType', {networkType});
       } else {
         func.execFunc(err);
       }
