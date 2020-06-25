@@ -5,14 +5,17 @@
     top
     right
     :color="color"
-    :multi-line="mode === 'multi-line'"
-    :vertical="mode === 'vertical'"
+    :multi-line="typeof message === 'object' && message.length && message.length > 1"
+    :vertical="vertical"
     :timeout="0"
     :value="id !== -1">
     <transition v-if="overlaps.length">
       <v-avatar class="mr-4" size="34" color="#00000033" :key="(overlaps.length % 2)" v-text="cptdOverlap" />
     </transition>
-    <span v-text="message" />
+    <div v-text="message" v-if="typeof message === 'string'" />
+    <div v-else-if="typeof message === 'object' && message.length">
+      <div v-text="msg" v-for="(msg, msgIndex) in message" :key="msgIndex" />
+    </div>
     <v-btn icon dark @click="close">
       <v-icon>mdi-close</v-icon>
     </v-btn>
@@ -31,12 +34,11 @@ export default {
       type: String,
       default: ''
     },
-    mode: {
-      type: String,
-      default: ''
+    vertical: {
+      type: Boolean,
+      default: false
     },
     message: {
-      type: String,
       default: ''
     },
     overlaps: {
@@ -98,7 +100,6 @@ export default {
   display: flex;
   justify-content: center;
   margin: 12px 24px;
-  height: 52px;
   transition: all 0.2s;
 }
 

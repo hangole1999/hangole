@@ -5,7 +5,7 @@
       <Snackbar
         :id="snackbar.id"
         :color="snackbar.color"
-        :mode="snackbar.mode"
+        :vertical="snackbar.vertical"
         :message="snackbar.message"
         :overlaps="snackbar.overlaps"
         v-for="snackbar in snackbars"
@@ -26,10 +26,26 @@ export default {
     snackbars () {
       let result = [];
 
-      for (let i = 0; i < this.$store.getters.ui.snackbar.list.length; i++) {
-        let snackbar = this.$store.getters.ui.snackbar.list[i];
+      for (let snackbarIndex = 0; snackbarIndex < this.$store.getters.ui.snackbar.list.length; snackbarIndex++) {
+        let snackbar = this.$store.getters.ui.snackbar.list[snackbarIndex];
 
-        let overlapSnackbar = result.find((resultSnackbar) => resultSnackbar.message === snackbar.message);
+        let overlapSnackbar = result.find((resultSnackbar) => {
+          if(resultSnackbar.message === snackbar.message) {
+            return true;
+          } else if (typeof resultSnackbar.message === typeof snackbar.message
+            && typeof snackbar.message === 'object'
+            && resultSnackbar.message.length === snackbar.message.length) {
+            for (let messageIndex = 0; messageIndex < snackbar.message.length; messageIndex++) {
+              if (resultSnackbar.message[messageIndex] !== snackbar.message[messageIndex]) {
+                return false;
+              }
+            }
+            return true;
+          } else {
+            return false;
+          }
+        });
+
         if (overlapSnackbar) {
           overlapSnackbar.overlaps.push(snackbar.id);
         } else {

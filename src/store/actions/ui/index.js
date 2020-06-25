@@ -18,11 +18,11 @@ export default {
     }
     func.execFunc(final);
   },
-  addSnackbar ({commit, state}, {message, mode, color, then, err, final}) {
+  addSnackbar ({commit, state}, {message, vertical, color, then, err, final}) {
     try {
       commit('addSnackbar', {snackbar: {
         id: state.ui.snackbar.id++,
-        mode: mode || '',
+        vertical: vertical || false,
         color: color || 'info',
         message: message
       }, then});

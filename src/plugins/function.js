@@ -216,8 +216,8 @@ const getColorFromString = (str) => {
     return 'FFFFFF';
   }
   let hash = 0;
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+  for (let stringIndex = 0; stringIndex < str.length; stringIndex++) {
+    hash = str.charCodeAt(stringIndex) + ((hash << 5) - hash);
   }
   let color = (hash & 0x00FFFFFF).toString(16).toUpperCase();
 
@@ -263,8 +263,23 @@ const axiosErrorHandle = (dispatch, error, errorFunction) => {
 
   snackbarMessage = [axiosMessage, responseMessage].join(' ').trim() || 'Unknown error';
 
-  message = `${axiosStatusString}${responseStatusString}${snackbarMessage}`;
-  window.console.log(message);
+  if (axiosStatusString || responseStatusString) {
+    message = [];
+    if (axiosStatusString) {
+      message.push(axiosStatusString);
+    }
+    if (responseStatusString) {
+      message.push(responseStatusString);
+    }
+    message.push(snackbarMessage);
+  } else {
+    message = snackbarMessage;
+  }
+
+  dispatch('addSnackbar', {
+    message: message,
+    color: 'error'
+  });
 
   execFunc(errorFunction, error);
 };
