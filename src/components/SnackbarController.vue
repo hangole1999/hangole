@@ -7,7 +7,8 @@
         :color="snackbar.color"
         :mode="snackbar.mode"
         :message="snackbar.message"
-        v-for="snackbar in $store.getters.ui.snackbar.list"
+        :overlaps="snackbar.overlaps"
+        v-for="snackbar in snackbars"
         :key="snackbar.id" />
     </transition-group>
   </div>
@@ -20,6 +21,24 @@ export default {
   name: 'SnackbarController',
   components: {
     Snackbar
+  },
+  computed: {
+    snackbars () {
+      let result = [];
+
+      for (let i = 0; i < this.$store.getters.ui.snackbar.list.length; i++) {
+        let snackbar = this.$store.getters.ui.snackbar.list[i];
+
+        let overlapSnackbar = result.find((resultSnackbar) => resultSnackbar.message === snackbar.message);
+        if (overlapSnackbar) {
+          overlapSnackbar.overlaps.push(snackbar.id);
+        } else {
+          result.push(Object.assign({}, snackbar, {overlaps: []}));
+        }
+      }
+
+      return result;
+    }
   }
 };
 </script>

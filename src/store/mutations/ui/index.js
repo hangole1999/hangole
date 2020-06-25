@@ -7,22 +7,13 @@ export default {
 
     func.execFunc(then);
   },
-  addSnackbar (state, {message, mode, color, then}) {
-    state.ui.snackbar.list.push({
-      id: state.ui.snackbar.id++,
-      mode: mode || '',
-      color: color || 'info',
-      message: message
-    });
+  addSnackbar (state, {snackbar, then}) {
+    state.ui.snackbar.list.push(snackbar);
 
     func.execFunc(then);
   },
-  removeSnackbar (state, {id, then}) {
-    let index = state.ui.snackbar.list.findIndex((snackbar) => snackbar.id === id);
-    
-    if (index >= 0, index < state.ui.snackbar.list.length) {
-      state.ui.snackbar.list.splice(index, 1);
-    }
+  removeSnackbar (state, {index, then}) {
+    state.ui.snackbar.list.splice(index, 1);
 
     func.execFunc(then);
   }

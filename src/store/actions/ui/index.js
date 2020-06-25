@@ -18,17 +18,26 @@ export default {
     }
     func.execFunc(final);
   },
-  addSnackbar ({commit}, {message, mode, color, then, err, final}) {
+  addSnackbar ({commit, state}, {message, mode, color, then, err, final}) {
     try {
-      commit('addSnackbar', {message, mode, color, then});
+      commit('addSnackbar', {snackbar: {
+        id: state.ui.snackbar.id++,
+        mode: mode || '',
+        color: color || 'info',
+        message: message
+      }, then});
     } catch (error) {
       func.execFunc(err, error);
     }
     func.execFunc(final);
   },
-  removeSnackbar ({commit}, {id, then, err, final}) {
+  removeSnackbar ({commit, getters}, {id, then, err, final}) {
     try {
-      commit('removeSnackbar', {id, then});
+      let index = getters.ui.snackbar.list.findIndex((snackbar) => snackbar.id === id);
+      
+      if (index >= 0, index < getters.ui.snackbar.list.length) {
+        commit('removeSnackbar', {index, then});
+      }
     } catch (error) {
       func.execFunc(err, error);
     }
