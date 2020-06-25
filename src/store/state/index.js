@@ -12,7 +12,7 @@ export default {
     web3: {
       isInjected: false,
       web3Instance: null,
-      networkID: null,
+      networkType: null,
       coinbase: null,
       balance: null,
       error: null

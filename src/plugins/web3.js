@@ -31,11 +31,11 @@ const getCoinbase = (web3) => new Promise((resolve, reject) => {
 });
 
 const getNetwork = (web3) => new Promise((resolve, reject) => {
-  web3.version.getNetwork((err, networkID) => {
+  web3.eth.net.getNetworkType((err, networkType) => {
     if (err) {
-      reject(new Error('Unable to retrieve network ID'));
+      reject(new Error('Unable to retrieve network type'));
     } else {
-      resolve(networkID);
+      resolve(networkType);
     }
   });
 });

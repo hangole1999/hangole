@@ -17,8 +17,8 @@ export default {
 
     func.execFunc(then);
   },
-  syncNetworkID (state, {networkID, then}) {
-    state.metamask.web3.networkID = networkID;
+  syncNetworkType (state, {networkType, then}) {
+    state.metamask.web3.networkType = networkType;
 
     func.execFunc(then);
   },

@@ -16,7 +16,7 @@ export default {
           web3.getBalance(web3Instance, coinbase).then((balance) => commit('syncBalance', {balance}));
         });
         
-        // web3.getNetwork(web3Instance).then((networkID) => commit('syncNetworkID', {networkID}));
+        // web3.getNetwork(web3Instance).then((networkType) => commit('syncNetworkType', {networkType}));
       } else {
         func.execFunc(err);
       }
