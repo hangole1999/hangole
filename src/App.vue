@@ -10,6 +10,8 @@
 
     <Footer />
 
+    <NavigationDrawer />
+
     <SnackbarController />
   </v-app>
 </template>
@@ -18,6 +20,8 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
+import NavigationDrawer from '@/components/NavigationDrawer';
+
 import SnackbarController from '@/components/SnackbarController';
 
 export default {
@@ -25,6 +29,7 @@ export default {
   components: {
     Header,
     Footer,
+    NavigationDrawer,
     SnackbarController
   }
 };

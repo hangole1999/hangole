@@ -1,34 +1,35 @@
 
 <template>
-  <div class="header">
-    <div class="header-shadow header-color">
-      <v-layout class="header-content" align-end>
-        <v-col class="text-left pa-0" cols="4">
-        </v-col>
-        <v-col class="text-center pa-0 pt-12" cols="4">
-          <Logo />
-        </v-col>
-        <v-col class="text-right pa-0" cols="4">
-          <template v-if="$store.getters.user.token">
-            <v-btn class="mr-2" dark outlined to="/mypage">
-              <span>Mypage</span>
-            </v-btn>
-            <v-btn dark outlined @click="logout">
-              <span>Logout</span>
-            </v-btn>
-          </template>
-          <template v-else>
-            <v-btn class="mr-2" dark outlined to="/join">
-              <span>Join</span>
-            </v-btn>
-            <v-btn dark outlined to="/login">
-              <span>Login</span>
-            </v-btn>
-          </template>
-        </v-col>
-      </v-layout>
-    </div>
-  </div>
+  <v-app-bar class="header" color="primary" app dark fixed inverted-scroll prominent>
+    <v-app-bar-nav-icon @click="$store.state.ui.drawer = true" />
+
+    <v-toolbar-title>
+      <Logo />
+    </v-toolbar-title>
+
+    <v-spacer />
+
+    <v-btn icon>
+      <v-icon>mdi-magnify</v-icon>
+    </v-btn>
+    <v-btn icon>
+      <v-icon>mdi-heart</v-icon>
+    </v-btn>
+
+    <v-menu bottom left>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn icon v-bind="attrs" v-on="on">
+          <v-icon>mdi-dots-vertical</v-icon>
+        </v-btn>
+      </template>
+
+      <v-list>
+        <v-list-item :to="menu.to" @click="menu.click || (() => {})" v-for="(menu, menuIndex) in menus" :key="menuIndex">
+          <v-list-item-title>{{ menu.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+  </v-app-bar>
 </template>
 
 <script>
@@ -38,6 +39,36 @@ export default {
   name: 'Header',
   components: {
     Logo
+  },
+  data () {
+    return {
+      nonuserMenus: [
+        {
+          title: 'mypage',
+          to: '/mypage'
+        },
+        {
+          title: 'logout',
+          click: this.logout
+        }
+      ],
+      userMenus: [
+        {
+          title: 'join',
+          to: '/join'
+        },
+        {
+          title: 'login',
+          to: '/login'
+        }
+      ]
+    };
+  },
+  computed: {
+    menus () {
+      window.console.log('menus logged in', !!this.$store.getters.user.token);
+      return this.$store.getters.user.token ? this.userMenus : this.nonuserMenus;
+    }
   },
   methods: {
     logout () {
@@ -57,40 +88,5 @@ export default {
 
 <style scoped>
 .header {
-}
-
-.header-color {
-  background-color: #1976d2;
-}
-</style>
-
-<style>
-.header-shadow {
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-}
-
-.header-content {
-  width: 100%;
-  padding: 12px;
-  margin-right: auto;
-  margin-left: auto;
-}
-
-@media (min-width: 960px) {
-  .header-content {
-    max-width: 900px;
-  }
-}
-
-@media (min-width: 1264px) {
-  .header-content {
-    max-width: 1185px;
-  }
-}
-
-@media (min-width: 1904px) {
-  .header-content {
-    max-width: 1785px;
-  }
 }
 </style>

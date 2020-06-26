@@ -23,6 +23,7 @@ export default {
     using: false
   },
   ui: {
+    drawer: false,
     snackbar: {
       id: 0,
       show: true,
