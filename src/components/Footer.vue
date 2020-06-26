@@ -1,6 +1,6 @@
 
 <template>
-  <v-footer class="footer" dark padless>
+  <v-footer class="footer" :class="{'hide': hide}" dark padless>
     <v-row class="footer-content" justify="center" no-gutters>
       <v-col class="lighten-2 py-2 text-center white--text" cols="12">
         <v-btn class="ma-2" dark text rounded :href="familySite.href" :to="familySite.to" v-text="familySite.title" v-for="(familySite, familySiteIndex) in familySites" :key="familySiteIndex" />
@@ -21,6 +21,12 @@
 <script>
 export default {
   name: 'Footer',
+  props: {
+    hide: {
+      type: Boolean,
+      default: false
+    }
+  },
   computed: {
   },
   watch: {
@@ -48,6 +54,11 @@ export default {
   -ms-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
   -o-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
   transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+}
+
+.footer.hide {
+  display: none;
+  transform: translateY(100%);
 }
 
 .footer-content {

@@ -16,7 +16,11 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
+    meta: {
+      hideHeader: true,
+      hideFooter: true
+    }
   }, {
     path: '/join',
     name: 'Join',

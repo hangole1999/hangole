@@ -16,6 +16,6 @@ export default {
   },
 
   storeLanguage (state, {then}) {
-    func.storageEach((storage) => storage.setItem('language', JSON.stringify(state.language))).then(then);
+    func.storageEach((storage) => storage.setItem('language', state.language)).then(then);
   }
 };

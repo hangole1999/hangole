@@ -1,6 +1,6 @@
 
 <template>
-  <v-app-bar class="header" color="primary" app dark fixed inverted-scroll prominent>
+  <v-app-bar class="header" :class="{'hide': hide}" color="primary" app dark fixed inverted-scroll prominent>
     <v-app-bar-nav-icon @click="$store.state.ui.drawer = true" />
 
     <v-toolbar-title>
@@ -37,6 +37,12 @@ import Logo from '@/components/header/Logo';
 
 export default {
   name: 'Header',
+  props: {
+    hide: {
+      type: Boolean,
+      default: false
+    }
+  },
   components: {
     Logo
   },
@@ -87,6 +93,16 @@ export default {
 </script>
 
 <style scoped>
-.header {
+* {
+  user-select: none;
+  -webkit-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+  -moz-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+  -ms-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+  -o-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+  transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+}
+
+.header.hide {
+  transform: translateY(-100%);
 }
 </style>

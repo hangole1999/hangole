@@ -1,5 +1,4 @@
 
-
 /* all */
 * {
   font-family: 'Roboto Slab', serif;
@@ -37,7 +36,8 @@ body {
 }
 
 .app-container {
-  // padding: 100px 12px;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 a {
@@ -50,6 +50,10 @@ img,
 a,
 .no-user-select {
   user-select: none;
+}
+
+.full-height {
+  height: 100%;
 }
 
 .transition-all {

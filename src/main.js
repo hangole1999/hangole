@@ -10,6 +10,7 @@ import './plugins/config';
 import './plugins/function';
 import './plugins/axios';
 import './plugins/firebase';
+import './plugins/vueFullpage';
 import './plugins/vueResponsiveVideoBackgroundPlayer';
 
 Vue.config.productionTip = false;
