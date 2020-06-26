@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :dark="$store.getters.theme.dark">
     <Header />
 
     <v-main>

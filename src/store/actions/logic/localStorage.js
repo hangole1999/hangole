@@ -2,11 +2,27 @@
 import func from '@/plugins/function';
 
 export default {
-  async syncLocalStorage ({commit}, {then, err, final}) {
+  async syncLocalStorage ({commit, getters}, {then, err, final}) {
     await func.storageEach(async (storage) => {
+      let theme = storage.getItem('theme');
+      let language = storage.getItem('language');
       let connectionCount = storage.getItem('connectionCount');
       let connectMetamask = storage.getItem('connectMetamask');
+      let dark = false;
 
+      try {
+        theme = JSON.parse(theme);
+        if (typeof theme !== 'object') {
+          dark = !!theme.dark;
+        }
+      } catch (err_) {
+        theme = getters.theme;
+      }
+      try {
+        language = language || 'en';
+      } catch (err_) {
+        language = 'en';
+      }
       try {
         connectionCount = parseInt(connectionCount) || 0;
       } catch (err_) {
@@ -21,16 +37,7 @@ export default {
         await this.dispatch('connectMetamask', {});
       }
 
-      commit('syncLocalStorage', {connectionCount, then});
+      commit('syncLocalStorage', {dark: dark, language, connectionCount, then});
     }).catch(err).finally(final);
-  },
-
-  storeMetamask ({commit}, {then, err, final}) {
-    try {
-      commit('storeMetamask', {then});
-    } catch (error) {
-      func.execFunc(err, error);
-    }
-    func.execFunc(final);
   }
 };

@@ -23,6 +23,15 @@ export default {
       func.execFunc(err, error);
     }
     func.execFunc(final);
+  },
+
+  storeMetamask ({commit}, {then, err, final}) {
+    try {
+      commit('storeMetamask', {then});
+    } catch (error) {
+      func.execFunc(err, error);
+    }
+    func.execFunc(final);
   }
 }
   

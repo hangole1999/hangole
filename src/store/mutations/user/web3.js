@@ -26,6 +26,12 @@ export default {
     state.metamask.web3.balance = parseInt(balance, 10);
 
     func.execFunc(then);
+  },
+
+  storeMetamask (state, {then}) {
+    func.storageEach(
+      (storage) => storage.setItem('connectMetamask', JSON.stringify(state.metamask.using))
+    ).then(then);
   }
 }
   

@@ -1,14 +1,8 @@
 
-import func from '@/plugins/function';
-
 export default {
-  syncLocalStorage (state, {connectionCount, then}) {
+  syncLocalStorage (state, {dark, language, connectionCount, then}) {
+    this.commit('setTheme', {dark});
+    this.commit('setLanguage', {language});
     this.commit('setConnectionCount', {connectionCount, then});
-  },
-
-  storeMetamask (state, {then}) {
-    func.storageEach(
-      (storage) => storage.setItem('connectMetamask', JSON.stringify(state.metamask.using))
-    ).then(then);
   }
 };

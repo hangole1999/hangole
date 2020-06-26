@@ -1,7 +1,10 @@
 
 export default {
+  theme: {
+    dark: false
+  },
   connectionCount: 0,
-  language: '',
+  language: 'en',
   user: {
     data: null,
     email: '',

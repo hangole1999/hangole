@@ -11,23 +11,11 @@ export default {
     func.execFunc(then);
   },
   storeUser (state, {then}) {
-    let storage;
-    try {
-      storage = window['localStorage'];
-      let x = '__storage_test__';
-      storage.setItem(x, x);
-      storage.removeItem(x);
-
-      storage.setItem('user', JSON.stringify({
-        email: state.user.email,
-        name: state.user.name,
-        token: state.user.token
-      }));
-    } catch (err) {
-      window.console.error('storeUser', err);
-    }
-
-    func.execFunc(then);
+    func.storageEach((storage) => storage.setItem('user', JSON.stringify({
+      email: state.user.email,
+      name: state.user.name,
+      token: state.user.token
+    }))).then(then);
   }
 }
   

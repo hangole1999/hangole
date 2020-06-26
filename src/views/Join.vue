@@ -21,7 +21,7 @@
             </v-row>
             <v-row>
               <v-col cols="4">
-                <v-btn block large color="#fff" @click="joinGoogle">Google</v-btn>
+                <v-btn block large light color="#fff" @click="joinGoogle">Google</v-btn>
               </v-col>
               <v-col cols="4">
                 <v-btn block large dark color="#2d88ff" @click="joinFacebook">Facebook</v-btn>
