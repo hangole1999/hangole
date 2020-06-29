@@ -104,4 +104,43 @@ a,
   transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
 }
 
+.slide-in-left {
+  animation: 0.3s slide-in-left-animation;
+}
+
+.slide-in-right {
+  animation: 0.3s slide-in-right-animation;
+}
+
+.fade-in {
+  animation: 0.3s fade-in-animation;
+}
+
+@keyframes slide-in-left-animation {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes slide-in-right-animation {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0px);
+  }
+}
+
+@keyframes fade-in-animation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 </style>

@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <div class="fullpage-container">
-      <div class="fullpage-wp" v-fullpage="opts" ref="example">
-        <div class="page-1 page">
+    <FullpageContainer>
+      <Fullpage>
+        <template slot="background">
           <v-row class="ma-0 pa-0 full-height">
             <v-col class="ma-0 pa-0" cols="4">
               <v-card class="full-height" dark tile />
@@ -16,48 +16,73 @@
                 :sources="videoBackgroundSources" />
             </v-col>
           </v-row>
-          <div class="page-container">
-            <v-layout class="page-content" column>
-              <div class="page-title">
-                <div class="outline">Welcome to</div>
-                <div class="outline">Project</div>
-                Hangole
+        </template>
+        <template default:slot>
+          <PageContainer>
+            <Page column justify-space-around>
+              <div>
+                <PageTitle>
+                  <div class="outline" v-animate="{value: 'slide-in-left'}">Welcome to</div>
+                  <div class="outline" v-animate="{value: 'slide-in-left', delay: 50}">Project</div>
+                  <div v-animate="{value: 'slide-in-left', delay: 100}">Hangole</div>
+                </PageTitle>
+                <PageDescription class="pa-8" v-animate="{value: 'slide-in-left', delay: 200}">
+                  Nice to meet you, I am a frontend developer.<br />
+                  Here, you can explore various projects that I have made.<br />
+                  Take a look.
+                </PageDescription>
               </div>
-              <div class="page-description pa-8">
-                Nice to meet you, I am a frontend developer.<br />
-                Here, you can explore various projects that I have made.<br />
-                Take a look.
+              <div class="text-center" v-animate="{value: 'fade-in', delay: 300}">
+                <v-btn dark outlined x-large>Look around</v-btn>
               </div>
-              <div class="text-center">
-                <v-btn dark outlined>Look around</v-btn>
-              </div>
-              <v-spacer />
-              <div class="page-description text-right">
+              <PageDescription class="text-right" v-animate="{value: 'slide-in-right', delay: 400}">
                 asdsad
-              </div>
-            </v-layout>
-          </div>
-        </div>
-        <div class="page-2 page">
-          <v-layout justify-center align-center full-height>
-            <p class="display-1">2</p>
-          </v-layout>
-        </div>
-        <div class="page-3 page">
-          <v-layout justify-center align-center full-height>
-            <p class="display-1">3</p>
-          </v-layout>
-        </div>
-      </div>
-      <button @click="moveNext">next</button>
-    </div>
+              </PageDescription>
+            </Page>
+          </PageContainer>
+        </template>
+      </Fullpage>
+
+      <Fullpage>
+        <template default:slot>
+          <PageContainer>
+            <Page justify-center align-center>
+              <PageTitle color="#000">2</PageTitle>
+            </Page>
+          </PageContainer>
+        </template>
+      </Fullpage>
+
+      <Fullpage>
+        <template default:slot>
+          <PageContainer>
+            <Page justify-center align-center>
+              <PageTitle color="#000">3</PageTitle>
+            </Page>
+          </PageContainer>
+        </template>
+      </Fullpage>
+    </FullpageContainer>
   </div>
 </template>
 
 <script>
+import FullpageContainer from '@/components/page/FullpageContainer';
+import Fullpage from '@/components/page/Fullpage';
+import PageContainer from '@/components/page/PageContainer';
+import Page from '@/components/page/Page';
+import PageTitle from '@/components/page/PageTitle';
+import PageDescription from '@/components/page/PageDescription';
+
 export default {
   name: 'Home',
   components: {
+    FullpageContainer,
+    Fullpage,
+    PageContainer,
+    Page,
+    PageTitle,
+    PageDescription
   },
   data: () => ({
     videoBackgroundSources: [
@@ -65,16 +90,13 @@ export default {
       {src: '/water_tablet.mp4', res: 900, autoplay: true},
       {src: '/water_mobile.mp4', res: 638, autoplay: true}
     ],
-    opts: {
-      start: 0,
-      dir: 'v',
-      duration: 500
-      // beforeChange: (currentSlideEl, currenIndex, nextIndex) => {
-      //   window.console.log(currentSlideEl, currenIndex, nextIndex);
-      // },
-      // afterChange: (currentSlideEl, currenIndex) => {
-      //   window.console.log(currentSlideEl, currenIndex);
-      // }
+    options: {
+      beforeChange: (currentSlideEl, currenIndex, nextIndex) => {
+        window.console.log('beforeChange', currenIndex, nextIndex);
+      },
+      afterChange: (currentSlideEl, currenIndex) => {
+        window.console.log('afterChange', currenIndex);
+      }
     }
   }),
   methods: {
@@ -86,49 +108,11 @@ export default {
 </script>
 
 <style scoped>
-.fullpage-container {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.page-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 100px;
-}
-
-.page-content {
-  height: 100%;
-  max-width: 900px;
-  margin: auto;
-  padding: 24px 12px;
-}
-
-.page-title {
-  color: white;
-  font-size: 6rem;
-  line-height: 4.5rem;
-  letter-spacing: -0.7rem;
-}
-
-.page-title.outline,
-.page-title div.outline,
-.page-title span.outline {
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  -webkit-text-stroke: 2px white;
-}
-
-.page-description {
-  color: white;
-  font-size: 1.2rem;
-  line-height: 1.2rem;
-  letter-spacing: -0.08rem;
+* {
+  -webkit-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+  -moz-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+  -ms-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+  -o-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
+  transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
 }
 </style>

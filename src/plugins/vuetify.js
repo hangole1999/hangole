@@ -15,7 +15,8 @@ const vuetify = new Vuetify({
         error: '#FF5252',
         info: '#2196F3',
         success: '#4CAF50',
-        warning: '#FFC107'
+        warning: '#FFC107',
+        background: '#121212'
       },
       light: {
         primary: '#1976D2',
@@ -25,7 +26,8 @@ const vuetify = new Vuetify({
         error: '#FF5252',
         info: '#2196F3',
         success: '#4CAF50',
-        warning: '#FFC107'
+        warning: '#FFC107',
+        background: '#FFFFFF'
       }
     }
   }
