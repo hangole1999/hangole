@@ -36,7 +36,10 @@
                 <v-btn dark outlined x-large>Look around</v-btn>
               </div>
               <PageDescription class="text-right" v-animate="{value: 'slide-in-right', delay: 400}">
-                asdsad
+                There is no single solution.
+                A single cannot satisfy the conflicting requirements of Apps.
+                There is no single solution.
+                A single cannot satisfy the conflicting requirements of Apps.
               </PageDescription>
             </Page>
           </PageContainer>
