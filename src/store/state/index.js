@@ -1,7 +1,7 @@
 
 export default {
   theme: {
-    dark: false
+    dark: true
   },
   connectionCount: 0,
   language: 'en',

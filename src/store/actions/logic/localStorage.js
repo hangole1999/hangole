@@ -8,7 +8,7 @@ export default {
       let language = storage.getItem('language');
       let connectionCount = storage.getItem('connectionCount');
       let connectMetamask = storage.getItem('connectMetamask');
-      let dark = false;
+      let dark = true;
 
       try {
         theme = JSON.parse(theme);

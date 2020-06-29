@@ -1,6 +1,6 @@
 
 <template>
-  <v-navigation-drawer class="navigation-drawer" app fixed v-model="$store.getters.ui.drawer">
+  <v-navigation-drawer class="navigation-drawer" app fixed temporary v-model="$store.getters.ui.drawer">
     <v-list nav dense>
       <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
         <v-list-item>

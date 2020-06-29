@@ -42,7 +42,7 @@ export default {
 
 /* all */
 * {
-  font-family: 'Roboto Slab', serif;
+  /* font-weight: 900 !important; */
   outline: none;
   vertical-align: middle;
   list-style: none;
@@ -56,12 +56,12 @@ export default {
 
 /* user selection */
 ::-moz-selection {
-  color: white !important;
-  background: black !important;
+  color: #fff !important;
+  background: #000000 !important;
 }
 ::selection {
-  color: white !important;
-  background: black !important;
+  color: #fff !important;
+  background: #000000 !important;
 }
 
 /* all scopes */
@@ -77,8 +77,7 @@ body {
 }
 
 .app-container {
-  padding-top: 0px;
-  padding-bottom: 0px;
+  padding: 0px;
 }
 
 a {
