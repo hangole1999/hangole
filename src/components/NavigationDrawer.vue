@@ -1,6 +1,6 @@
 
 <template>
-  <v-navigation-drawer class="navigation-drawer" app fixed temporary v-model="$store.getters.ui.drawer">
+  <v-navigation-drawer class="navigation-drawer" app dark fixed right temporary v-model="$store.getters.ui.drawer">
     <v-list nav dense>
       <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
         <v-list-item>
@@ -16,7 +16,6 @@
           </v-list-item-icon>
           <v-list-item-title>Account</v-list-item-title>
         </v-list-item>
-
       </v-list-item-group>
     </v-list>
   </v-navigation-drawer>

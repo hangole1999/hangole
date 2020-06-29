@@ -72,7 +72,6 @@ export default {
   },
   computed: {
     menus () {
-      window.console.log('menus logged in', !!this.$store.getters.user.token);
       return this.$store.getters.user.token ? this.userMenus : this.nonuserMenus;
     }
   },
