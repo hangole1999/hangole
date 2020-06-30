@@ -290,41 +290,41 @@ export default {
   data: () => ({
     videoBackgrounds: {
       main: {
-        src: '/main/main.mp4',
+        src: '/videos/main/main.mp4',
         sources: [
-          {src: '/main/main_laptop.mp4', res: 1200, autoplay: true},
-          {src: '/main/main_tablet.mp4', res: 900, autoplay: true},
-          {src: '/main/main_mobile.mp4', res: 638, autoplay: true}
+          {src: '/videos/main/main_laptop.mp4', res: 1200, autoplay: true},
+          {src: '/videos/main/main_tablet.mp4', res: 900, autoplay: true},
+          {src: '/videos/main/main_mobile.mp4', res: 638, autoplay: true}
         ],
         playbackRate: 0.8,
         overlay: 'linear-gradient(15deg, #000000cc, #80808066, #000000cc)'
       },
       game: {
-        src: '/game/game.mp4',
+        src: '/videos/game/game.mp4',
         sources: [
-          {src: '/game/game_laptop.mp4', res: 1200, autoplay: true},
-          {src: '/game/game_tablet.mp4', res: 900, autoplay: true},
-          {src: '/game/game_mobile.mp4', res: 638, autoplay: true}
+          {src: '/videos/game/game_laptop.mp4', res: 1200, autoplay: true},
+          {src: '/videos/game/game_tablet.mp4', res: 900, autoplay: true},
+          {src: '/videos/game/game_mobile.mp4', res: 638, autoplay: true}
         ],
         playbackRate: 0.8,
         overlay: 'linear-gradient(-15deg, #000000cc, #80808066, #000000cc)'
       },
       blog: {
-        src: '/blog/blog.mp4',
+        src: '/videos/blog/blog.mp4',
         sources: [
-          {src: '/blog/blog_laptop.mp4', res: 1200, autoplay: true},
-          {src: '/blog/blog_tablet.mp4', res: 900, autoplay: true},
-          {src: '/blog/blog_mobile.mp4', res: 638, autoplay: true}
+          {src: '/videos/blog/blog_laptop.mp4', res: 1200, autoplay: true},
+          {src: '/videos/blog/blog_tablet.mp4', res: 900, autoplay: true},
+          {src: '/videos/blog/blog_mobile.mp4', res: 638, autoplay: true}
         ],
         playbackRate: 0.8,
         overlay: 'linear-gradient(15deg, #000000cc, #80808066, #000000cc)'
       },
       sns: {
-        src: '/sns/sns.mp4',
+        src: '/videos/sns/sns.mp4',
         sources: [
-          {src: '/sns/sns_laptop.mp4', res: 1200, autoplay: true},
-          {src: '/sns/sns_tablet.mp4', res: 900, autoplay: true},
-          {src: '/sns/sns_mobile.mp4', res: 638, autoplay: true}
+          {src: '/videos/sns/sns_laptop.mp4', res: 1200, autoplay: true},
+          {src: '/videos/sns/sns_tablet.mp4', res: 900, autoplay: true},
+          {src: '/videos/sns/sns_mobile.mp4', res: 638, autoplay: true}
         ],
         playbackRate: 0.8,
         overlay: 'linear-gradient(-15deg, #000000cc, #80808066, #000000cc)'
