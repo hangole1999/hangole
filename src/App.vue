@@ -47,6 +47,7 @@ export default {
   vertical-align: middle;
   list-style: none;
   text-decoration: none;
+  user-select: none;
   scroll-behavior: smooth;
   word-wrap: break-word;
   word-break: break-word;

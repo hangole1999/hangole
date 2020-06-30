@@ -1,6 +1,6 @@
 
 <template>
-  <router-link class="logo display-1 white--text" to="/">
+  <router-link class="logo" to="/">
     Hangole
   </router-link>
 </template>
@@ -15,5 +15,9 @@ export default {
 .logo {
   display: block;
   padding: 9.5px;
+  color: #fff;
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: -0.1rem;
 }
 </style>

@@ -137,10 +137,10 @@
       <Fullpage>
         <template slot="background">
           <v-row class="ma-0 pa-0 full-height">
-            <v-col class="ma-0 pa-0" cols="4">
+            <!-- <v-col class="ma-0 pa-0" cols="4">
               <v-card class="full-height" dark tile />
-            </v-col>
-            <v-col class="ma-0 pa-0" cols="8">
+            </v-col> -->
+            <v-col class="ma-0 pa-0" cols="12">
               <video-background
                 class="full-height"
                 :src="videoBackgrounds.blog.src"
@@ -202,7 +202,7 @@
       <Fullpage>
         <template slot="background">
           <v-row class="ma-0 pa-0 full-height">
-            <v-col class="ma-0 pa-0" cols="8">
+            <v-col class="ma-0 pa-0" cols="12">
               <video-background
                 class="full-height"
                 :src="videoBackgrounds.sns.src"
@@ -210,9 +210,9 @@
                 :playbackRate="videoBackgrounds.sns.playbackRate"
                 :sources="videoBackgrounds.sns.sources" />
             </v-col>
-            <v-col class="ma-0 pa-0" cols="4">
+            <!-- <v-col class="ma-0 pa-0" cols="4">
               <v-card class="full-height" dark tile />
-            </v-col>
+            </v-col> -->
           </v-row>
         </template>
         <template default:slot>
