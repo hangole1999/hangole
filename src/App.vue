@@ -3,7 +3,7 @@
     <Header :hide="$route.meta.hideHeader" />
 
     <v-main>
-      <v-container class="app-container">
+      <v-container class="app-container transition-all">
         <router-view/>
       </v-container>
     </v-main>
@@ -42,7 +42,6 @@ export default {
 
 /* all */
 * {
-  /* font-weight: 900 !important; */
   outline: none;
   vertical-align: middle;
   list-style: none;
@@ -78,7 +77,7 @@ body {
 }
 
 .app-container {
-  padding: 0px;
+  padding: 100px 10px;
 }
 
 a {
@@ -144,4 +143,21 @@ a,
   }
 }
 
+@media (max-width: 1264px) {
+  .app-container {
+    padding: 70px 10px;
+  }
+}
+
+@media (max-width: 960px) {
+  .app-container {
+    padding: 50px 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-container {
+    padding: 30px 5px;
+  }
+}
 </style>

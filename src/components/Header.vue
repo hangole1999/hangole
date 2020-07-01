@@ -1,34 +1,13 @@
 
 <template>
-  <v-app-bar class="header" :class="{'hide': hide}" color="primary" app dark fixed inverted-scroll prominent>
-    <v-app-bar-nav-icon @click="$store.state.ui.drawer = true" />
-
+  <v-app-bar class="header" color="primary" app dark fixed hide-on-scroll prominent :height="(hide &&'0px') || undefined">
     <v-toolbar-title>
       <Logo />
     </v-toolbar-title>
 
     <v-spacer />
 
-    <v-btn icon>
-      <v-icon>mdi-magnify</v-icon>
-    </v-btn>
-    <v-btn icon>
-      <v-icon>mdi-heart</v-icon>
-    </v-btn>
-
-    <v-menu bottom left>
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn icon v-bind="attrs" v-on="on">
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
-      </template>
-
-      <v-list>
-        <v-list-item :to="menu.to" @click="menu.click || (() => {})" v-for="(menu, menuIndex) in menus" :key="menuIndex">
-          <v-list-item-title>{{ menu.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
+    <v-app-bar-nav-icon @click="$store.state.ui.drawer = true" v-if="!hide" />
   </v-app-bar>
 </template>
 
@@ -92,16 +71,4 @@ export default {
 </script>
 
 <style scoped>
-* {
-  user-select: none;
-  -webkit-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
-  -moz-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
-  -ms-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
-  -o-transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
-  transition: all .3s cubic-bezier(0, 0.49, 0.46, 1.01);
-}
-
-.header.hide {
-  transform: translateY(-100%);
-}
 </style>

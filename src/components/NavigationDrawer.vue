@@ -2,7 +2,7 @@
 <template>
   <v-navigation-drawer class="navigation-drawer" app dark fixed right temporary v-model="$store.getters.ui.drawer">
     <v-list nav dense>
-      <v-list-item-group v-model="group" active-class="deep-purple--text text--accent-4">
+      <v-list-item-group v-model="group" active-class="primary--text text--primary">
         <v-list-item>
           <v-list-item-icon>
             <v-icon>mdi-home</v-icon>
@@ -34,5 +34,6 @@ export default {
 
 <style scoped>
 .navigation-drawer {
+  z-index: 999;
 }
 </style>
