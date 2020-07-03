@@ -9,7 +9,9 @@ export default {
     data: null,
     email: '',
     name: '',
-    token: ''
+    token: '',
+    claims: null,
+    loaded: false
   },
   metamask: {
     web3: {

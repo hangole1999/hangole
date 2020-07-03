@@ -7,7 +7,7 @@
     :color="color"
     :multi-line="typeof message === 'object' && message.length && message.length > 1"
     :vertical="vertical"
-    :timeout="0"
+    :timeout="-1"
     :value="id !== -1">
     <transition v-if="overlaps.length">
       <v-avatar class="mr-4" size="34" color="#00000033" :key="(overlaps.length % 2)" v-text="cptdOverlap" />
@@ -71,7 +71,7 @@ export default {
         try {
           clearInterval(this.interval);
         } catch (error) {
-          window.console.error('checkClose', 'clearInterval', error);
+          console.error('checkClose', 'clearInterval', error);
         }
       }
     },
@@ -88,7 +88,7 @@ export default {
     try {
       clearInterval(this.interval);
     } catch (error) {
-      window.console.error('beforeDestroy', 'clearInterval', error);
+      console.error('beforeDestroy', 'clearInterval', error);
     }
   }
 };

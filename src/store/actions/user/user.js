@@ -2,9 +2,30 @@
 import func from '@/plugins/function';
 
 export default {
-  setUser ({commit}, {email, name, token, data, then, err, final}) {
+  async setUser ({commit}, {email, name, data, then, err, final}) {
     try {
-      commit('setUser', {email, name, token, data, then});
+      let token = '';
+      let claims = {};
+
+      if (typeof data === 'object') {
+        if (!email) {
+          email = data.email || '';
+        }
+        if (!name) {
+          name = data.displayName || '';
+        }
+
+        if (typeof data.getIdToken === 'function') {
+          token = await data.getIdToken(true);
+        }
+        if (typeof data.getIdTokenResult === 'function') {
+          const tokenResult = await data.getIdTokenResult();
+
+          claims = tokenResult.claims;
+        }
+      }
+
+      commit('setUser', {email, name, data, token, claims, then});
     } catch (error) {
       func.execFunc(err, error);
     }
@@ -12,15 +33,7 @@ export default {
   },
   resetUser ({commit}, {then, err, final}) {
     try {
-      commit('setUser', {email: '', name: '', token: '', data: null, then});
-    } catch (error) {
-      func.execFunc(err, error);
-    }
-    func.execFunc(final);
-  },
-  storeUser ({commit}, {then, err, final}) {
-    try {
-      commit('storeUser', {then});
+      commit('setUser', {email: '', name: '', data: null, then});
     } catch (error) {
       func.execFunc(err, error);
     }

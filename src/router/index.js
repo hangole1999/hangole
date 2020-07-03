@@ -1,43 +1,11 @@
+
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import func from '@/plugins/function';
-
-import Home from '@/views/Home.vue';
-import Join from '@/views/Join.vue';
-import Login from '@/views/Login.vue';
-import Mypage from '@/views/Mypage.vue';
-
-import store from '@/store';
+import routes from './routes';
+import func from './function';
 
 Vue.use(Router);
-
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Home,
-    meta: {
-      hideHeader: true,
-      hideFooter: true
-    }
-  }, {
-    path: '/join',
-    name: 'Join',
-    component: Join
-  }, {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  }, {
-    path: '/mypage',
-    name: 'Mypage',
-    component: Mypage,
-    meta: {
-      authRequired: true
-    }
-  }
-];
 
 const router = new Router({
   mode: 'history',
@@ -45,35 +13,8 @@ const router = new Router({
   routes
 });
 
-const requireAuth = (to, from, next) => {
-  let authRequired = to.matched.some((routeInfo) => routeInfo.meta.authRequired);
-
-  if (authRequired) {
-    if (store.getters.user.token) {
-      next();
-    } else {
-      func.storageEach((storage) => {
-        let user = storage.getItem('user');
-        user = JSON.parse(user);
-
-        if (user.token) {
-          store.dispatch('setUser', {
-            email: user.email,
-            name: user.name,
-            token: user.token,
-            data: user.data,
-            then: next
-          });
-        } else {
-          next('/login');
-        }
-      }).catch(() => next('/login'));
-    }
-  } else {
-    next();
-  }
-};
-
-router.beforeEach(requireAuth);
+router.beforeEach(func.checkAuth);
+router.afterEach(Vue.prototype.$Progress.finish);
+router.onError(func.onRouterError);
 
 export default router;

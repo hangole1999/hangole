@@ -17,7 +17,7 @@ const storageEach = (func) => new Promise((resolve, reject) => {
 
     resolve(func(storage));
   } catch (error) {
-    window.console.error('storageEach', error);
+    console.error('storageEach', error);
     reject(error);
   }
 });
@@ -38,7 +38,7 @@ const timeformatDiffNow = (timestamp) => {
   try {
     timeValue = parseInt(timestamp);
   } catch (error) {
-    window.console.error(error);
+    console.error(error);
   }
 
   if ((`${timeValue}`).length < 13) {
@@ -93,7 +93,7 @@ const timeformatObjectDiffNow = (timestamp) => {
   try {
     timeValue = parseInt(timestamp);
   } catch (error) {
-    window.console.error(error);
+    console.error(error);
   }
 
   if ((`${timeValue}`).length < 13) {
@@ -153,7 +153,7 @@ const timeformat = (timestamp) => {
   try {
     timeValue = parseInt(timestamp);
   } catch (error) {
-    window.console.error(error);
+    console.error(error);
   }
 
   if ((`${timeValue}`).length < 13) {
@@ -194,7 +194,7 @@ const isTimeDiffBy = (time1, time2, diff) => {
     time2 = parseInt(time2);
     diff = parseInt(diff);
   } catch (error) {
-    window.console.error(error);
+    console.error(error);
   }
 
   if ((`${time1}`).length < 13) {
@@ -231,7 +231,7 @@ const numberWithCommas = (x) => {
   try {
     x = (`${x}`).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
   } catch (error) {
-    window.console.log('numberWithCommas Error', error);
+    console.log('numberWithCommas Error', error);
   }
   return x;
 };

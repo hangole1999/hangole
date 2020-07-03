@@ -5,15 +5,15 @@
       <v-card-title>
         <span class="headline">Login</span>
       </v-card-title>
-      <v-form ref="form" id="login-form" v-model="valid" lazy-validation @submit.prevent="login">
+      <v-form ref="form" id="login-form" v-model="form.valid" lazy-validation @submit.prevent="login">
         <v-card-text>
           <v-container>
             <v-row>
               <v-col cols="12">
-                <v-text-field outlined clearable required counter="50" tabindex="1" label="Email" hint="Please enter your email." :disabled="loading" :rules="rulesEmail" v-model="email" />
+                <v-text-field outlined clearable required counter="50" tabindex="1" label="Email" hint="Please enter your email." :disabled="loading" :rules="rule.rulesEmail" v-model="form.email" />
               </v-col>
               <v-col cols="12">
-                <v-text-field outlined clearable required counter="20" tabindex="1" label="Password" hint="Please enter your password." :disabled="loading" :rules="rulesPassword" :type="showPassword ? 'text' : 'password'" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" v-model="password" @click:append="showPassword = !showPassword" />
+                <v-text-field outlined clearable required counter="20" tabindex="1" label="Password" hint="Please enter your password." :disabled="loading" :rules="rule.rulesPassword" :type="showPassword ? 'text' : 'password'" :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'" v-model="form.password" @click:append="showPassword = !showPassword" />
               </v-col>
             </v-row>
             <v-row>
@@ -44,20 +44,24 @@ export default {
   name: 'Login',
   data () {
     return {
-      valid: true,
-      email: '',
-      password: '',
-      rulesEmail: [
-        v => !!v || 'Email is required.',
-        v => (v && v.length > 3) || 'Email must be longer than 3 characters.',
-        v => (v && v.length <= 50) || 'Email must be shorter than 50 characters.',
-        v => (v && this.$validateEmail(v)) || 'It doesn\'t fit the email format.'
-      ],
-      rulesPassword: [
-        v => !!v || 'Password is required',
-        v => (v && v.length > 3) || 'Password must be longer than 3 characters.',
-        v => (v && v.length <= 20) || 'Password must be shorter than 20 characters.'
-      ],
+      form: {
+        valid: true,
+        email: '',
+        password: ''
+      },
+      rule: {
+        rulesEmail: [
+          v => !!v || 'Email is required.',
+          v => (v && v.length > 3) || 'Email must be longer than 3 characters.',
+          v => (v && v.length <= 50) || 'Email must be shorter than 50 characters.',
+          v => (v && this.$validateEmail(v)) || 'It doesn\'t fit the email format.'
+        ],
+        rulesPassword: [
+          v => !!v || 'Password is required',
+          v => (v && v.length > 3) || 'Password must be longer than 3 characters.',
+          v => (v && v.length <= 20) || 'Password must be shorter than 20 characters.'
+        ]
+      },
       showPassword: false,
       loading: false
     }
@@ -71,7 +75,16 @@ export default {
         return false;
       }
 
-      this.$firebase.auth().signInWithEmailAndPassword(this.email, this.password).then((result) => {
+      console.log(this.form.email, this.form.password);
+      this.$firebase.auth().signInWithEmailAndPassword(this.form.email, this.form.password).then(async (result) => {
+        console.log('signInWithEmailAndPassword');
+        const currentUser = this.$firebase.auth().currentUser;
+        await currentUser.getIdToken();
+        console.log(currentUser);
+        // await this.$store.dispatch('getUser', user)
+        // if (this.$store.state.claims.level === undefined || this.$store.state.claims.level > 1) this.$router.push('/userProfile')
+        // else this.$router.push('/')
+
         let token = result.credential && result.credential.accessToken;
         let user = result.user;
 
@@ -81,8 +94,6 @@ export default {
           token: token,
           data: user
         });
-
-        this.$store.dispatch('storeUser', {});
 
         this.$store.dispatch('addSnackbar', {
           color: 'success',
@@ -116,8 +127,6 @@ export default {
           data: user
         });
 
-        this.$store.dispatch('storeUser', {});
-
         this.$store.dispatch('addSnackbar', {
           color: 'success',
           message: `Successfully logged in by google. Welcome, ${user.displayName || user.email}`
@@ -147,8 +156,6 @@ export default {
           data: user
         });
 
-        this.$store.dispatch('storeUser', {});
-
         this.$store.dispatch('addSnackbar', {
           color: 'success',
           message: `Successfully logged in by facebook. Welcome, ${user.displayName || user.email}`
@@ -177,8 +184,6 @@ export default {
           token: token,
           data: user
         });
-
-        this.$store.dispatch('storeUser', {});
 
         this.$store.dispatch('addSnackbar', {
           color: 'success',

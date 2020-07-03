@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     menus () {
-      return this.$store.getters.user.token ? this.userMenus : this.nonuserMenus;
+      return this.$store.getters.user.data ? this.userMenus : this.nonuserMenus;
     }
   },
   methods: {

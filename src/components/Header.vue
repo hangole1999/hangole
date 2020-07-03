@@ -1,6 +1,6 @@
 
 <template>
-  <v-app-bar class="header" color="primary" app dark fixed hide-on-scroll prominent :height="(hide &&'0px') || undefined">
+  <v-app-bar class="header" color="primary" app dark fixed hide-on-scroll :height="(hide &&'0px') || undefined">
     <v-toolbar-title>
       <Logo />
     </v-toolbar-title>
@@ -25,47 +25,11 @@ export default {
   components: {
     Logo
   },
-  data () {
-    return {
-      nonuserMenus: [
-        {
-          title: 'mypage',
-          to: '/mypage'
-        },
-        {
-          title: 'logout',
-          click: this.logout
-        }
-      ],
-      userMenus: [
-        {
-          title: 'join',
-          to: '/join'
-        },
-        {
-          title: 'login',
-          to: '/login'
-        }
-      ]
-    };
-  },
+  data: () => ({
+  }),
   computed: {
-    menus () {
-      return this.$store.getters.user.token ? this.userMenus : this.nonuserMenus;
-    }
   },
   methods: {
-    logout () {
-      this.$store.dispatch('resetUser', {then: () => {
-        this.$store.dispatch('addSnackbar', {
-          color: 'success',
-          message: 'Successfully logged out'
-        });
-      }});
-      if (this.$route.path !== '/') {
-        this.$router.push('/');
-      }
-    }
   }
 }
 </script>
