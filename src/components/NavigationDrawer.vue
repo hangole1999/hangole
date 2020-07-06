@@ -3,19 +3,19 @@
   <v-navigation-drawer class="navigation-drawer" app dark fixed right temporary v-model="$store.getters.ui.drawer">
     <v-list nav dense>
       <template v-for="(menu, menuIndex) in menus">
-        <v-list-item @click="typeof menu.click === 'function' && menu.click()" :key="menuIndex" v-if="menu.to || menu.click">
+        <v-list-item color="white" :to="menu.to" @click="typeof menu.click === 'function' && menu.click()" :key="menuIndex" v-if="menu.to || menu.click">
           <v-list-item-icon>
             <v-icon v-text="menu.icon" />
           </v-list-item-icon>
           <v-list-item-title v-text="menu.title" />
         </v-list-item>
-        <v-list-group :no-action="!menu.to && !menu.click" :prepend-icon="menu.icon" :to="menu.to" @click="typeof menu.click === 'function' && menu.click()" v-model="menu.active" :key="menuIndex" v-else>
+        <v-list-group no-action color="white" :prepend-icon="menu.icon" :to="menu.to" @click="typeof menu.click === 'function' && menu.click()" v-model="menu.active" :key="menuIndex" v-else>
           <template v-slot:activator>
-            <v-list-item>
+            <v-list-item class="px-0">
               <v-list-item-title v-text="menu.title" />
             </v-list-item>
           </template>
-          <v-list-item :no-action="!child.to && !child.click" @click="typeof child.click === 'function' && child.click()" v-for="(child, childIndex) in menu.children" :key="childIndex">
+          <v-list-item :no-action="!child.to && !child.click" :to="child.to" @click="typeof child.click === 'function' && child.click()" v-for="(child, childIndex) in menu.children" :key="childIndex">
             <v-list-item-title v-text="child.title" />
             <v-list-item-icon>
               <v-icon v-text="child.icon" />
